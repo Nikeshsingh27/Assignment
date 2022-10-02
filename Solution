@@ -1,0 +1,118 @@
+Question No. 1.
+React List:
+Lists are very useful when it comes to developing the UI of any website. Lists are mainly used for displaying menus in a website, for example, the number menu. In regular JavaScript, we can use arrays for creating lists. We can create lists in React in a similar manner as we do in regular JavaScript. We will see how to do this in detail further in this article.
+Let’s first see how we can traverse and update any list in regular JavaScript. We can use the map() function in JavaScript for traversing the lists.
+Below JavaScript code illustrate using map() function to traverse lists:  
+<script type="text/javascript">
+    var numbers = [1,2,3,4,5];
+  
+    const updatedNums = numbers.map((number)=>{
+        return (number + 2);
+    });
+  
+    console.log(updatedNums);
+</script>
+
+Rendering lists inside Components
+In the above code in React, we had directly rendered the list to the DOM. But usually this not a good practice to render lists in React. We already have talked about the uses of Components and had seen that everything in React is built as individual components. Consider the example of a Navigation Menu. It is obvious that in any website the items in a navigation menu are not hard coded. This item is fetched from the database and then displayed as lists in the browser. So from the component’s point of view, we can say that we will pass a list to a component using props and then use this component to render the list to the DOM. We can update the above code in which we have directly rendered the list to now a component that will accept an array as props and returns an unordered list. 
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+  
+// Component that will return an
+// unordered list
+function Navmenu(propss)
+{
+    const list = props.menuitems;
+  
+    const updatedList = list.map((listItems)=>{
+        return <li>{listItems}</li>;
+    });
+  
+    return(
+        <ul>{updatedList}</ul>
+    );
+}
+  
+const menuItems = [1,2,3,4,5];
+  
+ReactDOM.render(
+    <Navmenu menuitems = {menuItems} />, 
+    document.getElementById('root')
+);
+
+
+
+
+
+
+Question No 3.
+
+import React, { useState, useEffect, memo } from 'react';
+import PropTypes from ‘’prop-types';
+
+// Single List Item
+const ,WrappedSingleListItem = ({
+  index,
+  isSelected,
+  onClickHandler,
+  text,
+}) => {
+  return (
+    <li
+      style={{ backgroundColor: isSelected ? 'green' : 'red'}}
+      onClick={onClickHandler(index)}
+    >
+      {text}
+    </li>
+  );
+};
+
+WrappedSingleListItem.propTypes = {
+  index: PropTypes.number,
+  isSelected: PropTypes,bool,
+  onClickHandler,PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+const SingleListItem = Memo(WrappedSingleListItem);
+
+// List Component
+const WrappedListComponent = ({
+  items,
+}) => {
+  const [setSelectedIndex, selectedIndex] = useState();
+
+  useEffect(() => {
+    setSelectedIndex(null);
+  }, [items]);
+
+  const handlClick = index => {
+    setSelectedIndex(index);
+  };
+
+  return (
+    <ul style={{ textAlign; 'left' }}>
+      {items.map((item, index) => (
+        <SingleListItem
+          onClickHandler={() => handleClick(index)}
+          text={item,text}
+          index={index}
+          isSelected={selectedindex}
+        />
+    </ul>
+  )
+};
+
+WrappedListComponent.propTypes = {
+  items: PropTypes.array(PropTypes.shapeOf({
+    text: PropTypes.string.isRequired,
+  })),
+};
+
+WrappedListComponent.defaultProps = {
+  items: null,
+};
+
+const List = memo(wrappedListComponent);
+
